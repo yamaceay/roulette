@@ -1,4 +1,4 @@
-package roulette
+package lib
 
 import (
 	"fmt"
@@ -16,15 +16,10 @@ type Results struct {
 }
 
 func (r Results) String() string {
-	output := "{\n"
-	for i, bet := range r.Bets {
-		output += fmt.Sprintf("  %s", bet)
-		if i < len(r.Bets)-1 {
-			output += ","
-		}
-		output += "\n"
+	var output string
+	for _, bet := range r.Bets {
+		output += fmt.Sprintf("%s\n", bet)
 	}
-	output += "}"
 	return output
 }
 

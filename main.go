@@ -6,10 +6,10 @@ import (
 	"io"
 	"os"
 
-	"github.com/roulette/roulette"
+	"github.com/roulette/lib"
 )
 
-func readGames() (roulette.Games, error) {
+func readGames() (lib.Games, error) {
 	f, err := os.Open("config.json")
 	if err != nil {
 		return nil, fmt.Errorf("InvalidFilename: %w", err)
@@ -18,11 +18,11 @@ func readGames() (roulette.Games, error) {
 	if err != nil {
 		return nil, fmt.Errorf("InvalidFile: %w", err)
 	}
-	var options []roulette.GameOptions
+	var options []lib.GameOptions
 	if err := json.Unmarshal(bytes, &options); err != nil {
 		return nil, fmt.Errorf("InvalidUnmarshal: %w", err)
 	}
-	games := roulette.NewGames(options)
+	games := lib.NewGames(options)
 	if games == nil {
 		return nil, fmt.Errorf("EmptyGames: %w", err)
 	}
@@ -40,14 +40,17 @@ func main() {
 		fmt.Println(err)
 	} else {
 		fmt.Println("------------------------------------")
-		fmt.Println("Possible Events")
-		fmt.Println("------------------------------------")
 		fmt.Println("p(<wage>) = <prob>")
+		fmt.Println("------------------------------------")
 		fmt.Println(results)
 		fmt.Println("------------------------------------")
 		fmt.Println("Descriptive Stats (Summary)")
 		fmt.Println("------------------------------------")
-		fmt.Println(results.Stats())
+		if stats, err := results.Stats(); err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println(stats)
+		}
 		fmt.Println("------------------------------------")
 		fmt.Println("Descriptive Stats (Individual)")
 		fmt.Println("------------------------------------")

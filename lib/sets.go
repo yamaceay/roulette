@@ -1,4 +1,4 @@
-package roulette
+package lib
 
 func listLens[A any](lists ...[]A) ([]int, int) {
 	var lengths []int

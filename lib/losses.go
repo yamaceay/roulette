@@ -1,4 +1,4 @@
-package roulette
+package lib
 
 type History []float64
 
