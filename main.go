@@ -35,11 +35,29 @@ func main() {
 		panic(err)
 	}
 
-	results, err := games.Play()
+	results, resultsEach, err := games.Play()
 	if err != nil {
 		fmt.Println(err)
 	} else {
+		fmt.Println("------------------------------------")
+		fmt.Println("Possible Events")
+		fmt.Println("------------------------------------")
+		fmt.Println("p(<wage>) = <prob>")
 		fmt.Println(results)
+		fmt.Println("------------------------------------")
+		fmt.Println("Descriptive Stats (Summary)")
+		fmt.Println("------------------------------------")
 		fmt.Println(results.Stats())
+		fmt.Println("------------------------------------")
+		fmt.Println("Descriptive Stats (Individual)")
+		fmt.Println("------------------------------------")
+		for i, eachResult := range resultsEach {
+			stats, err := eachResult.Stats()
+			if err != nil {
+				fmt.Printf("[%d] - %s\n\n", i, err)
+			} else {
+				fmt.Printf("[%d] \n%s\n", i, stats)
+			}
+		}
 	}
 }

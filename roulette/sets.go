@@ -9,12 +9,12 @@ func listLens[A any](lists ...[]A) ([]int, int) {
 	}
 	return lengths, size
 }
-func Prod[A any](lists ...[]A) [][]A {
+func Prod[A any](lists ...[]*A) [][]*A {
 	lengths, size := listLens(lists...)
 
-	var allItems [][]A
+	var allItems [][]*A
 	for point := 0; point < size; point++ {
-		var items []A
+		var items []*A
 		tempPoint := point
 		for i, length := range lengths {
 			index := tempPoint % length

@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-func mapToBets(bets map[float64]float64) []Bet {
+func mapToBets(bets map[float64]float64) []*Bet {
 	var wages []float64
 	for wage := range bets {
 		wages = append(wages, wage)
@@ -17,11 +17,11 @@ func mapToBets(bets map[float64]float64) []Bet {
 		wages[i], wages[j] = wages[j], wages[i]
 	}
 
-	var probs []Bet
+	var probs []*Bet
 	for _, wage := range wages {
 		prob := bets[wage]
 		bet := Bet{Wage: wage, Prob: prob}
-		probs = append(probs, bet)
+		probs = append(probs, &bet)
 	}
 	return probs
 }
